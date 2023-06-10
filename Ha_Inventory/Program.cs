@@ -13,15 +13,14 @@
 // cost, and a get for what the item is. A key and a value, is save into the slot in the list. We repeat this for each product we provided. Then we have the
 // the 5 option, which is the list shipment items.
 
-// In ListShipmentItems we made a dictionary, to count how many of each item we have, I believe it is call Tokenizing is what we're doing. So for each item
-// in the list, it goes through and check for each item and how may of each there are in there. Keeping track as a string and a in. After it counts runs
-// through the loop, it display how it. We have a parameter that if there's more than 1 item add an "s", and if the item is Cracker, changes it to the
-// plural on detection.
+// In ListShipmentItems we made a dictionary, to count how many of each item we have. So for each item in the list, it goes through and check for each
+// item and how may of each there are in there. Keeping track as a string and a in. After it counts runs through the loop, it display how it. We have a
+// parameter that if there's more than 1 item add an "s", and if the item is Cracker, changes it to the plural on detection.
 
 // In Compute Shipping Charges, we have a decimal Totalcost set at 0, then loop through each item we got from intime in _product. We add the shipcost to the
 // total cost variable. and return the cost to Program.cs to display.
 
-// The interface looks for product and cost, and each class holds the value and key to each item.s
+// The interface looks for product and cost, and each class holds the value and key to each items.
 
 namespace Ha_Inventory
 {
@@ -41,7 +40,7 @@ namespace Ha_Inventory
                     Console.WriteLine("1. Add a Bicycle to the shipment");
                     Console.WriteLine("2. Add a Baseball Glove to the Shipment");
                     Console.WriteLine("3. Add a Crackers to the shipment");
-                    Console.WriteLine("4. Add Lawnmower to the shipment");
+                    Console.WriteLine("4. Add a Lawnmower to the shipment");
                     Console.WriteLine("5. List Shipment Items");
                     Console.WriteLine("6. Compute Shipping Charges");
 
@@ -58,7 +57,7 @@ namespace Ha_Inventory
                             {
                                 case "1":
                                     Console.Clear();
-                                    shipper.Add(new Bicycles());
+                                    confirmAdded(shipper.Add(new Bicycles()));
                                     max++;
                                     break;
                                 case "2":
@@ -77,7 +76,7 @@ namespace Ha_Inventory
                             {
                                 case "1":
                                     Console.Clear();
-                                    shipper.Add(new BaseballGloves());
+                                    confirmAdded(shipper.Add(new BaseballGloves()));
                                     max++;
                                     break;
                                 case "2":
@@ -96,7 +95,7 @@ namespace Ha_Inventory
                             {
                                 case "1":
                                     Console.Clear();
-                                    shipper.Add(new Crackers());
+                                    confirmAdded(shipper.Add(new Crackers()));
                                     max++;
                                     break;
                                 case "2":
@@ -115,7 +114,7 @@ namespace Ha_Inventory
                             {
                                 case "1":
                                     Console.Clear();
-                                    shipper.Add(new LawnMowers());
+                                    confirmAdded(shipper.Add(new LawnMowers()));
                                     max++;
                                     break;
                                 case "2":
@@ -126,7 +125,11 @@ namespace Ha_Inventory
                             break;
                             case "5":
                             Console.Clear();
-                            shipper.ListShipmentItems();
+                            Console.WriteLine("Shipment manifest:");
+                            (int itemValue, string itemName) = shipper.ListShipmentItems();
+
+                            Console.WriteLine($"{itemValue} {itemName}");
+
                             break;
                             case "6":
                             Console.Clear();
@@ -173,6 +176,14 @@ namespace Ha_Inventory
 
             }
 
+        }
+        public static void confirmAdded(string ConItem)
+        {
+            Console.Clear();
+            Console.WriteLine($"1 {ConItem} has been added");
+            Console.WriteLine("Press any key to return to menu.");
+            Console.ReadLine();
+            Console.Clear();
         }
 
     }

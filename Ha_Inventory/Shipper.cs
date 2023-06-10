@@ -9,17 +9,12 @@ namespace Ha_Inventory
     class Shipper
     {
         private List<IShippable> _products = new List<IShippable>(10);
-        public void Add(IShippable product)
+        public string Add(IShippable product)
         {
             _products.Add(product);
-            Console.WriteLine($"1 {product.Product} has been added");
-            Console.WriteLine("Press any key to return to menu.");
-            Console.ReadLine();
-            Console.Clear();
-            
+            return product.Product;
         }
-
-        public void ListShipmentItems()
+        public (int, string) ListShipmentItems()
         {
             var itemCounts = new Dictionary<string, int>();
             foreach (var item in _products)
@@ -31,12 +26,18 @@ namespace Ha_Inventory
                 itemCounts[item.Product]++;
             }
 
-            Console.WriteLine("Shipment manifest:");
-            foreach (var item in itemCounts)
+            var lastItem = itemCounts.LastOrDefault();
+            if (lastItem.Key != null)
             {
-                Console.WriteLine($"{item.Value} {(item.Key == "Cracker" ? "Crackers" : (item.Value > 1 ? item.Key + "s" : item.Key))}");
+                string itemName = lastItem.Key == "Cracker" ? "Crackers" : (lastItem.Value > 1 ? lastItem.Key + "s" : lastItem.Key);
+                return (lastItem.Value, itemName);
+            }
+            else
+            {
+                return (0, string.Empty);
             }
         }
+
 
         public decimal ComputeShippingCharges()
         {
